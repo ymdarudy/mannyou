@@ -1,24 +1,27 @@
 # README
+## Table Schema
+#### User
+| Column          | Type   |
+| --------------- | ------ |
+| name            | string |
+| email           | string |
+| password_digest | string |
+| image           | text   |
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+#### Task
+| Column  | Type   |
+| ------- | ------ |
+| user_id | bigint |
+| title   | string |
+| content | text   |
 
-Things you may want to cover:
+#### Label
+| Column | Type   |
+| ------ | ------ |
+| name   | string |
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+#### TaskLabel
+| Column   | Type   |
+| -------- | ------ |
+| task_id  | bigint |
+| label_id | bigint |
