@@ -2,6 +2,16 @@
 
 <h1>Tasks</h1>
 
+<%= form_with url: tasks_path, method: :get, scope: :task, local: true do |form| %>
+  <div>
+    <%= t("activerecord.attributes.task.title") %>検索
+    <%= form.text_field :title %>
+    <%= form.submit "検索" %>
+  </div>
+  <div>
+  </div>
+<% end %>
+
 <table>
   <thead>
     <tr>
