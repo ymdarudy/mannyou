@@ -11,6 +11,11 @@
 </p>
 
 <p>
+  <strong><%= t("activerecord.attributes.task.status") %>:</strong>
+  <%= @task.status %>
+</p>
+
+<p>
   <strong><%= t("activerecord.attributes.task.expired_at") %>:</strong>
   <%= l @task.expired_at, format: :short%>
 </p>
