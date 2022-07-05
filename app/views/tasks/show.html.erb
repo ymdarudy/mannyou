@@ -10,5 +10,10 @@
   <%= @task.content %>
 </p>
 
+<p>
+  <strong><%= t("activerecord.attributes.task.expired_at") %>:</strong>
+  <%= l @task.expired_at, format: :short%>
+</p>
+
 <%= link_to 'Edit', edit_task_path(@task) %> |
 <%= link_to 'Back', tasks_path %>
