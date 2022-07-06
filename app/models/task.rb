@@ -6,6 +6,6 @@ class Task < ApplicationRecord
 
   enum status: { 未着手: 1, 着手中: 2, 完了: 3 }
 
-  scope :search_by_title, ->(title) { where("title LIKE ?", "%" + sanitize_sql_like(title) + "%") }
-  scope :search_by_status, ->(status) { where(status: status) }
+  scope :title_search, ->(title) { where("title LIKE ?", "%" + sanitize_sql_like(title) + "%") }
+  scope :status_search, ->(status) { where(status: status) }
 end
