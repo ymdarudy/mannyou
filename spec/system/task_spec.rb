@@ -42,20 +42,6 @@
 #     end
 #   end
 
-#   describe "ソート機能" do
-#     context "終了期限でソートを押した場合" do
-#       it "終了期限が一番長いタスクが一番上に表示される" do
-#         task1 = FactoryBot.create(:task, title: "2日後のタスク", expired_at: Time.now + 2.days)
-#         task2 = FactoryBot.create(:task, title: "1日後のタスク", expired_at: Time.now + 1.days)
-#         visit tasks_path
-#         click_on "終了期限でソート"
-#         sleep 2
-#         first_task = first(".task_row")
-#         expect(first_task).to have_content "2日後のタスク"
-#       end
-#     end
-#   end
-
 #   describe "詳細表示機能" do
 #     context "任意のタスク詳細画面に遷移した場合" do
 #       it "該当タスクの内容が表示される" do

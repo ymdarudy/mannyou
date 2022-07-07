@@ -44,7 +44,13 @@
 
 <br>
 
-<%= link_to 'New Task', new_task_path %>
-<%= link_to "終了期限でソート", tasks_path(sort_expired: "true") %>
-<%= link_to "優先度高い順", tasks_path(sort_priority: "true") %>
-<%= link_to "ソート解除", tasks_path %>
+<div>
+  <%= link_to 'New Task', new_task_path %>
+  <%= link_to "終了期限でソート", tasks_path(sort_expired: "true") %>
+  <%= link_to "優先度高い順", tasks_path(sort_priority: "true") %>
+  <%= link_to "ソート解除", tasks_path %>
+</div>
+
+<div>
+  <%= paginate @tasks %>
+</div>

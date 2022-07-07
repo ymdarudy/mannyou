@@ -16,7 +16,7 @@ class TasksController < ApplicationController
         @tasks = Task.status_search(status)
       end
     end
-    @tasks = @tasks.order(created_at: :desc)
+    @tasks = @tasks.order(created_at: :desc).page(params[:page]).per(3)
   end
 
   def show
