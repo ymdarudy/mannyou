@@ -1,0 +1,47 @@
+@import '~bootstrap/scss/bootstrap';
+
+
+header h1 {
+  background-color: rgba(27, 131, 39, 0.791);
+  font-size: 48px;
+  color: white;
+  padding-left: 3%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+body {
+  padding-top: 70px;
+}
+
+.pagination {
+  justify-content: center;
+}
+
+.table {
+  width: 80%;
+  margin-top: 10px;
+}
+
+.form-control {
+  width: 50%;
+}
+
+.custom-select {
+  width: 20%;
+}
+
+.btn {
+  margin: 5px;
+}
+
+.index-btn {
+  text-align: center;
+}
+
+.bodies {
+  margin-left:5%;
+}

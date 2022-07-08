@@ -1,6 +1,10 @@
-<h1>Editing Task</h1>
+<div class="bodies">
 
-<%= render 'form', task: @task %>
+  <h1>Editing Task</h1>
 
-<%= link_to 'Show', @task %> |
-<%= link_to 'Back', tasks_path %>
+  <%= render 'form', task: @task %>
+
+  <%= link_to 'Show', @task ,class: "btn btn-outline-primary" %>
+  <%= link_to 'Back', tasks_path ,class: "btn btn-outline-primary" %>
+
+</div>
