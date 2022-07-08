@@ -1,4 +1,5 @@
 require "rails_helper"
+
 RSpec.describe "タスク管理機能", type: :system do
   before do
     FactoryBot.create(:task)
@@ -14,6 +15,7 @@ RSpec.describe "タスク管理機能", type: :system do
         visit new_task_path
         fill_in "タスク名", with: "新規テスト"
         fill_in "内容", with: "どうだろうか"
+        fill_in "終了期限", with: Time.now
         click_on "登録する"
         expect(page).to have_content "新規テスト"
       end
