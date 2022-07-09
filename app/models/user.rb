@@ -8,5 +8,5 @@ class User < ApplicationRecord
                     format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
   validates :password, length: { minimum: 6 }
 
-  before_validation { emal.downcase! }
+  before_validation { email.downcase! }
 end
