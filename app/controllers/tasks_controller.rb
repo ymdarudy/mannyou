@@ -2,18 +2,18 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tasks = Task.all
-    @tasks = Task.all.order(expired_at: :desc) if params[:sort_expired]
-    @tasks = Task.all.order(priority: :desc) if params[:sort_priority]
+    @tasks = current_user.tasks
+    @tasks = @tasks.order(expired_at: :desc) if params[:sort_expired]
+    @tasks = @tasks.order(priority: :desc) if params[:sort_priority]
     if params[:task]
       title = params[:task][:title]
       status = params[:task][:status]
       if title.present? && status.present?
-        @tasks = Task.status_search(status).title_search(title)
+        @tasks = @tasks.status_search(status).title_search(title)
       elsif title.present?
-        @tasks = Task.title_search(title)
+        @tasks = @tasks.title_search(title)
       elsif status.present?
-        @tasks = Task.status_search(status)
+        @tasks = @tasks.status_search(status)
       end
     end
     @tasks = @tasks.order(created_at: :desc).page(params[:page]).per(3)
@@ -30,7 +30,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
 
     if @task.save
       redirect_to @task, notice: "Task was successfully created."
@@ -59,6 +59,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :content, :expired_at, :status, :priority)
+    params.require(:task).permit(:title, :content, :expired_at, :status, :priority, :user_id)
   end
 end

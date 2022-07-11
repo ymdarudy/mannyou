@@ -13,6 +13,7 @@ ja:
       user:
         name: 名前
         email: メールアドレス
+        admin: 管理者権限
         current_password: 現在のパスワード
         password: パスワード
         password_confirmation: 確認用パスワード
