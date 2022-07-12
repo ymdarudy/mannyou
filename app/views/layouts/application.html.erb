@@ -11,8 +11,7 @@
 
   <body>
     <header>
-      <%# TODO: 綺麗に並べる %>
-      <h1>Task管理 <small><%= "#{current_user.name}さん" if current_user.present? %></small></h1>
+      <h1>Task管理 <small><%= "(#{current_user.name}さん)" if current_user.present? %></small></h1>
     </header>
 
     <div class="bodies">
@@ -21,6 +20,7 @@
       <% end %>
 
       <% if logged_in? %>
+        <%= link_to "管理画面", admin_users_path if current_user.admin_before_type_cast %>
         <%= link_to "プロフィール", user_path(current_user.id) %>
         <%= link_to "ログアウト", session_path, method: :delete %>
       <% else %>

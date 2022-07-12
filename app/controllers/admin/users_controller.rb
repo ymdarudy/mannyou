@@ -1,4 +1,5 @@
 class Admin::UsersController < ApplicationController
+  before_action :only_admin_user
   before_action :set_user, only: %i[show edit update destroy]
 
   def index
@@ -49,14 +50,21 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
-    @user.destroy
-    redirect_to admin_users_path, notice: "#{@user.name}さんを削除しました！"
+    if @user.destroy
+      redirect_to admin_users_path, notice: "#{@user.name}さんを削除しました！"
+    else
+      redirect_to admin_users_path, notice: "#{@user.name}さんは唯一の管理者ユーザーのため削除できませんでした！"
+    end
   end
 
   private
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def only_admin_user
+    redirect_to tasks_path, notice: "管理者以外アクセス禁止！" unless current_user.admin_before_type_cast
   end
 
   def user_params
