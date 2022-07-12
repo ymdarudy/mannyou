@@ -13,7 +13,7 @@
   </thead>
 
   <tbody>
-    <% tasks.eager_load(:user).each do |task| %>
+    <% tasks.each do |task| %>
       <tr class="task_row">
         <td class="align-middle"><%= task.user.name %></td>
         <td class="align-middle"><%= task.title %></td>
