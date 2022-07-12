@@ -12,6 +12,7 @@ ja:
         priority: 優先度
         user_id: 作成者
       user:
+        id : ID
         name: 名前
         email: メールアドレス
         admin: 管理者権限

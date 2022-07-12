@@ -9,4 +9,6 @@ class User < ApplicationRecord
   validates :password, length: { minimum: 6 }
 
   before_validation { email.downcase! }
+
+  enum admin: { 有り: true, 無し: false }
 end

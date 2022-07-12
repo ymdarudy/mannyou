@@ -1,13 +1,11 @@
-class UsersController < ApplicationController
-  skip_before_action :login_required, only: %i[new create]
+class Admin::UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update destroy]
-  before_action :ensure_user, only: %i[show edit update destroy]
 
   def index
+    @users = User.all.order(:id)
   end
 
   def new
-    redirect_to tasks_path if current_user.present?
     @user = User.new
   end
 
@@ -15,14 +13,14 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       log_in @user
-      redirect_to user_path(@user.id)
+      redirect_to admin_users_path, notice: "#{@user.name}さんを追加しました！"
     else
       render :new
     end
   end
 
   def show
-    @tasks = current_user.tasks
+    @tasks = @user.tasks
     @tasks = @tasks.order(expired_at: :desc) if params[:sort_expired]
     @tasks = @tasks.order(priority: :desc) if params[:sort_priority]
     if params[:task]
@@ -43,9 +41,16 @@ class UsersController < ApplicationController
   end
 
   def update
+    if @user.update(user_params)
+      redirect_to admin_users_path, notice: "#{@user.name}さんを編集しました！"
+    else
+      render :edit
+    end
   end
 
   def destroy
+    @user.destroy
+    redirect_to admin_users_path, notice: "#{@user.name}さんを削除しました！"
   end
 
   private
@@ -54,12 +59,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def ensure_user
-    redirect_to tasks_path unless @user == current_user
-  end
-
   def user_params
     params.require(:user).permit(:name, :email, :password,
-                                 :password_confirmation)
+                                 :password_confirmation, :admin)
   end
 end

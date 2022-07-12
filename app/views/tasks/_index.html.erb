@@ -13,10 +13,10 @@
   </thead>
 
   <tbody>
-    <% tasks.each do |task| %>
-      <tr>
+    <% tasks.eager_load(:user).each do |task| %>
+      <tr class="task_row">
         <td class="align-middle"><%= task.user.name %></td>
-        <td class="task_row align-middle"><%= task.title %></td>
+        <td class="align-middle"><%= task.title %></td>
         <td class="align-middle"><%= task.content %></td>
         <td class="align-middle"><%= task.status %></td>
         <td class="align-middle"><%= task.priority %></td>

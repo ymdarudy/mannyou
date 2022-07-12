@@ -3,4 +3,8 @@ Rails.application.routes.draw do
   resources :tasks
   resource :session
   resources :users
+  namespace :admin do
+    root "users#index"
+    resources :users
+  end
 end
