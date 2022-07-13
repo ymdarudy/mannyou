@@ -23,7 +23,7 @@ class User < ApplicationRecord
   end
 
   def least_one_admin_for_update
-    if User.where(admin: :有り).count == 1 && self.admin == "無し" && User.find_by(admin: :有り).id == self.id
+    if User.where(admin: :有り).count == 1 && self.admin_change == ["有り", "無し"]
       errors.add :base, "少なくとも1人は管理者ユーザーが必要です！"
       throw :abort
     end
