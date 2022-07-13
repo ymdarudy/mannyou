@@ -11,13 +11,19 @@ class User < ApplicationRecord
   enum admin: { 有り: true, 無し: false }
 
   before_validation { email.downcase! }
-  before_destroy :least_one_admin
-  before_update :least_one_admin
+  before_destroy :least_one_admin_for_destroy
+  before_update :least_one_admin_for_update
 
   private
 
-  def least_one_admin
-    if User.where(admin: :有り).count == 1 && self.admin_before_type_cast
+  def least_one_admin_for_destroy
+    if User.where(admin: :有り).count == 1 && self.admin == "有り"
+      throw :abort
+    end
+  end
+
+  def least_one_admin_for_update
+    if User.where(admin: :有り).count == 1 && self.admin == "無し" && User.find_by(admin: :有り).id == self.id
       errors.add :base, "少なくとも1人は管理者ユーザーが必要です！"
       throw :abort
     end

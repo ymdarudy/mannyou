@@ -13,7 +13,6 @@ class Admin::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      log_in @user
       redirect_to admin_users_path, notice: "#{@user.name}さんを追加しました！"
     else
       render :new
@@ -25,15 +24,8 @@ class Admin::UsersController < ApplicationController
     @tasks = @tasks.order(expired_at: :desc) if params[:sort_expired]
     @tasks = @tasks.order(priority: :desc) if params[:sort_priority]
     if params[:task]
-      title = params[:task][:title]
-      status = params[:task][:status]
-      if title.present? && status.present?
-        @tasks = @tasks.status_search(status).title_search(title)
-      elsif title.present?
-        @tasks = @tasks.title_search(title)
-      elsif status.present?
-        @tasks = @tasks.status_search(status)
-      end
+      @tasks = @tasks.title_search(params[:task][:title]) if params[:task][:title]
+      @tasks = @tasks.status_search(params[:task][:status]) if params[:task][:status].present?
     end
     @tasks = @tasks.order(created_at: :desc).page(params[:page]).per(3)
   end
@@ -42,8 +34,9 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
+    before_edit_name = @user.name
     if @user.update(user_params)
-      redirect_to admin_users_path, notice: "#{@user.name}さんを編集しました！"
+      redirect_to admin_users_path, notice: "#{before_edit_name}さんを編集しました！"
     else
       render :edit
     end

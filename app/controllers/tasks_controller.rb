@@ -6,15 +6,8 @@ class TasksController < ApplicationController
     @tasks = @tasks.order(expired_at: :desc) if params[:sort_expired]
     @tasks = @tasks.order(priority: :desc) if params[:sort_priority]
     if params[:task]
-      title = params[:task][:title]
-      status = params[:task][:status]
-      if title.present? && status.present?
-        @tasks = @tasks.status_search(status).title_search(title)
-      elsif title.present?
-        @tasks = @tasks.title_search(title)
-      elsif status.present?
-        @tasks = @tasks.status_search(status)
-      end
+      @tasks = @tasks.title_search(params[:task][:title]) if params[:task][:title]
+      @tasks = @tasks.status_search(params[:task][:status]) if params[:task][:status].present?
     end
     @tasks = @tasks.order(created_at: :desc).page(params[:page]).per(3)
   end
