@@ -33,7 +33,11 @@
 
   <div class="form-group">
     <%= form.label :priority %>
-    <%= form.select :priority, Task.priorities.keys, {selected: "中"}, {class: "custom-select custom-select-sm"} %>
+    <% if task.id? %>
+      <%= form.select :priority, Task.priorities.keys, {}, {class: "custom-select custom-select-sm"} %>
+    <% else %>
+      <%= form.select :priority, Task.priorities.keys, {selected: "中"}, {class: "custom-select custom-select-sm"} %>
+    <% end %>
   </div>
 
   <div class="actions">

@@ -11,8 +11,23 @@
 
   <body>
     <header>
-      <h1>Task管理</h1>
+      <h1>Task管理 <small><%= "(#{current_user.name}さん)" if current_user.present? %></small></h1>
     </header>
+
+    <div class="bodies">
+      <% flash.each do |key, value| %>
+        <%= content_tag(:div, value, class: "#{key}") %>
+      <% end %>
+
+      <% if logged_in? %>
+        <%= link_to "管理画面", admin_users_path if current_user.admin_before_type_cast %>
+        <%= link_to "プロフィール", user_path(current_user.id) %>
+        <%= link_to "ログアウト", session_path, method: :delete %>
+      <% else %>
+        <%= link_to "ユーザー登録", new_user_path %>
+        <%= link_to "ログイン", new_session_path %>
+      <% end %>
+    </div>
 
     <%= yield %>
 

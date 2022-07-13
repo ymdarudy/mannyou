@@ -14,6 +14,7 @@ gem "bootsnap", ">= 1.4.2", require: false
 
 gem "rexml"
 gem "kaminari"
+gem "bcrypt"
 
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
@@ -33,7 +34,6 @@ group :development do
   gem "listen", "~> 3.2"
   gem "spring-watcher-listen", "~> 2.0.0"
   gem "better_errors"
-  gem "binding_of_caller"
 end
 
 group :test do

@@ -1,0 +1,42 @@
+<% if controller.kind_of?(Admin::UsersController)  %>
+  <% admin_or_user = [:admin, user]%>
+<% else %>
+  <% admin_or_user = user%>
+<% end %>
+
+<%= form_with(model: admin_or_user, local: true) do |form| %>
+  <% if user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this <%= @user.name %> from being saved:</h2>
+
+      <ul>
+        <% user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <% if controller.kind_of?(Admin::UsersController) %>
+      <%= form.label :admin %>
+      <%= form.select :admin, User.admins.keys, {}, {class: "custom-select custom-select-sm"} %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: "form-control form-control-sm" %>
+
+    <%= form.label :email %>
+    <%= form.email_field :email, class: "form-control form-control-sm" %>
+
+    <%= form.label :password %>
+    <%= form.password_field :password, class: "form-control form-control-sm" %>
+
+    <%= form.label :password_confirmation %>
+    <%= form.password_field :password_confirmation, class: "form-control form-control-sm" %>
+
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>
