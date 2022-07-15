@@ -16,4 +16,18 @@ class ApplicationController < ActionController::Base
   def login_required
     redirect_to new_session_path unless current_user
   end
+
+  def task_search(tasks)
+    tasks = tasks.order(expired_at: :desc) if params[:sort_expired]
+    tasks = tasks.order(priority: :desc) if params[:sort_priority]
+    if params[:task]
+      tasks = tasks.title_search(params[:task][:title]) if params[:task][:title]
+      tasks = tasks.status_search(params[:task][:status]) if params[:task][:status].present?
+      if params[:task][:label_id].present?
+        task_ids = Labeling.where(label_id: params[:task][:label_id]).pluck(:task_id)
+        tasks = tasks.where(id: task_ids)
+      end
+    end
+    tasks = tasks.order(created_at: :desc).page(params[:page]).per(3)
+  end
 end

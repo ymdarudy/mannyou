@@ -12,6 +12,7 @@ ja:
         status: ステータス
         priority: 優先度
         user_id: 作成者
+        label: ラベル
       user:
         id : ID
         name: 名前

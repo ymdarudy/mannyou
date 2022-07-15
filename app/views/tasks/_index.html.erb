@@ -1,3 +1,23 @@
+<% if controller.kind_of?(Admin::UsersController)  %>
+  <% url = admin_user_path(user.id)%>
+<% elsif controller.kind_of?(UsersController) %>
+  <% url = user_path(current_user.id)%>
+<% else %>
+  <% url = tasks_path%>
+<% end %>
+
+<%= form_with(url: url, method: :get, scope: :task, local: true, class: "form-inline justify-content-center") do |form| %>
+  <div>
+    <%= t("activerecord.attributes.task.title")%>:
+    <%= form.text_field :title, class: "form-control form-control-sm" %>
+    <%= t("activerecord.attributes.task.status") %>:
+    <%= form.select :status, Task.statuses.keys,{prompt: "---"}, {class: "custom-select custom-select-sm"} %>
+    <%= t("activerecord.attributes.task.label") %>:
+    <%= form.select :label_id, Label.all.collect { |l| [ l.name, l.id ] }, {include_blank: "---"}, {class: "custom-select custom-select-sm"} %>
+    <%= form.submit "検索" %>
+  </div>
+<% end %>
+
 <table class="table table-bordered table-hover table-sm mx-auto">
   <thead class="thead-dark">
     <tr>
